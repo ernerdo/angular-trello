@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
@@ -14,6 +15,7 @@ import { BoardsComponent } from './pages/boards/boards.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoardComponent } from './pages/board/board.component';
 import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.component';
+import { ScrollComponent } from './pages/scroll/scroll.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,7 @@ import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.compon
     NavbarComponent,
     BoardComponent,
     TodoDialogComponent,
+    ScrollComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.compon
     CdkAccordionModule,
     DragDropModule,
     DialogModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
