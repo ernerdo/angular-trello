@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { DialogModule } from '@angular/cdk/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { BtnComponent } from './components/btn/btn.component';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { BoardComponent } from './pages/board/board.component';
+import { TodoDialogComponent } from './components/todo-dialog/todo-dialog.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,7 @@ import { BoardComponent } from './pages/board/board.component';
     BoardsComponent,
     NavbarComponent,
     BoardComponent,
+    TodoDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { BoardComponent } from './pages/board/board.component';
     OverlayModule,
     CdkAccordionModule,
     DragDropModule,
+    DialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

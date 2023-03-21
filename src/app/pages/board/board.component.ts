@@ -4,6 +4,8 @@ import {
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
+import { Dialog } from '@angular/cdk/dialog';
+import { TodoDialogComponent } from '../../components/todo-dialog/todo-dialog.component';
 
 import { Column, ToDo } from '../../models/todo.model';
 
@@ -63,7 +65,7 @@ export class BoardComponent implements OnInit {
   doing: ToDo[] = [];
   done: ToDo[] = [];
 
-  constructor() {}
+  constructor(private dialog: Dialog) {}
 
   ngOnInit(): void {}
 
@@ -87,6 +89,12 @@ export class BoardComponent implements OnInit {
     this.columns.push({
       title: 'New Column',
       todos: [],
+    });
+  }
+  openDialog() {
+    this.dialog.open(TodoDialogComponent, {
+      minWidth: '300px',
+      maxWidth: '50%',
     });
   }
 }
