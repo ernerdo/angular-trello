@@ -17,7 +17,9 @@
       </button>
     </div>
     <div
-      *ngIf="form.controls.newPassword.touched && form.controls.newPassword.invalid"
+      *ngIf="
+        form.controls.newPassword.touched && form.controls.newPassword.invalid
+      "
     >
       <p
         *ngIf="form.controls.newPassword.hasError('required')"
@@ -71,10 +73,7 @@
     </p>
   </div>
   <div>
-    <app-btn
-      typeBtn="submit"
-      color="success"
-      [loading]="status === 'loading'"
+    <app-btn typeBtn="submit" color="success" [loading]="status === 'loading'"
       >Recovery</app-btn
     >
   </div>
