@@ -16,7 +16,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "ES2022",
+    "target": "es2020",
     "module": "es2020",
     "lib": ["es2020", "dom"],
     "paths": {
@@ -29,8 +29,7 @@
       "@interceptors/*": ["./src/app/interceptors/*"],
       "@services/*": ["./src/app/services/*"],
       "@utils/*": ["./src/app/utils/*"]
-    },
-    "useDefineForClassFields": false
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
