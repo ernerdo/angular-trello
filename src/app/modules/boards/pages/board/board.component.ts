@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -12,6 +13,7 @@ import { Card } from '@models/card.model';
 import { BoardsService } from '@services/boards.service';
 import { CardsService } from '@services/cards.service';
 import { Board } from '@models/board.model';
+import { List } from '@models/list.model';
 
 @Component({
   selector: 'app-board',
@@ -29,6 +31,15 @@ import { Board } from '@models/board.model';
 })
 export class BoardComponent implements OnInit {
   board: Board | null = null;
+  inputCard = new FormControl<string>('', {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
+  inputList = new FormControl<string>('', {
+    nonNullable: true,
+    validators: [Validators.required],
+  });
+  showListForm = false;
 
   constructor(
     private dialog: Dialog,
@@ -71,11 +82,9 @@ export class BoardComponent implements OnInit {
     this.updateCard(card, position, listId);
   }
 
-  addColumn() {
-    // this.columns.push({
-    //   title: 'New Column',
-    //   todos: [],
-    // });
+  addList() {
+    const title = this.inputList.value;
+    console.log(title);
   }
 
   openDialog(card: Card) {
@@ -105,5 +114,44 @@ export class BoardComponent implements OnInit {
       .subscribe((cardUpdated) => {
         console.log(cardUpdated);
       });
+  }
+
+  openFormCard(list: List) {
+    if (this.board?.lists) {
+      this.board.lists = this.board.lists.map((iteratorList) => {
+        if (iteratorList.id === list.id) {
+          return {
+            ...iteratorList,
+            showCardForm: true,
+          };
+        }
+        return {
+          ...iteratorList,
+          showCardForm: false,
+        };
+      });
+    }
+  }
+
+  createCard(list: List) {
+    const title = this.inputCard.value;
+    if (this.board) {
+      this.cardsService
+        .create({
+          title,
+          listId: list.id,
+          boardId: this.board.id,
+          position: this.boardsService.getPositionNewCard(list.cards),
+        })
+        .subscribe((card) => {
+          list.cards.push(card);
+          this.inputCard.setValue('');
+          list.showCardForm = false;
+        });
+    }
+  }
+
+  closeCardForm(list: List) {
+    list.showCardForm = false;
   }
 }
