@@ -11,6 +11,7 @@ import {
   faGear,
 } from '@fortawesome/free-solid-svg-icons';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
+
 import { MeService } from '@services/me.service';
 import { Board } from '@models/board.model';
 
@@ -20,6 +21,7 @@ import { Board } from '@models/board.model';
 })
 export class BoardsComponent implements OnInit {
   boards: Board[] = [];
+
   faTrello = faTrello;
   faBox = faBox;
   faWaveSquare = faWaveSquare;
