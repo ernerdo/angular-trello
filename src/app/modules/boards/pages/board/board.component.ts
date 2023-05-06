@@ -12,8 +12,10 @@ import { TodoDialogComponent } from '@boards/components/todo-dialog/todo-dialog.
 import { Card } from '@models/card.model';
 import { BoardsService } from '@services/boards.service';
 import { CardsService } from '@services/cards.service';
+import { ListsService } from '@services/lists.service';
 import { Board } from '@models/board.model';
 import { List } from '@models/list.model';
+import { BACKGROUNDS } from '@models/colors.model';
 
 @Component({
   selector: 'app-board',
@@ -40,12 +42,14 @@ export class BoardComponent implements OnInit {
     validators: [Validators.required],
   });
   showListForm = false;
+  colorBackgrounds = BACKGROUNDS;
 
   constructor(
     private dialog: Dialog,
     private route: ActivatedRoute,
     private boardsService: BoardsService,
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private listsService: ListsService
   ) {}
 
   ngOnInit() {
@@ -84,7 +88,22 @@ export class BoardComponent implements OnInit {
 
   addList() {
     const title = this.inputList.value;
-    console.log(title);
+    if (this.board) {
+      this.listsService
+        .create({
+          title,
+          boardId: this.board.id,
+          position: this.boardsService.getPositionNewItem(this.board.lists),
+        })
+        .subscribe((list) => {
+          this.board?.lists.push({
+            ...list,
+            cards: [],
+          });
+          this.showListForm = false;
+          this.inputList.setValue('');
+        });
+    }
   }
 
   openDialog(card: Card) {
@@ -141,7 +160,7 @@ export class BoardComponent implements OnInit {
           title,
           listId: list.id,
           boardId: this.board.id,
-          position: this.boardsService.getPositionNewCard(list.cards),
+          position: this.boardsService.getPositionNewItem(list.cards),
         })
         .subscribe((card) => {
           list.cards.push(card);
@@ -153,5 +172,13 @@ export class BoardComponent implements OnInit {
 
   closeCardForm(list: List) {
     list.showCardForm = false;
+  }
+
+  get colors() {
+    if (this.board) {
+      const classes = this.colorBackgrounds[this.board.backgroundColor];
+      return classes ? classes : {};
+    }
+    return {};
   }
 }
