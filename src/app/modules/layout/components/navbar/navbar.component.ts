@@ -1,15 +1,18 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import {
-  faBell,
-  faInfoCircle,
-  faClose,
   faAngleDown,
+  faBell,
+  faClose,
+  faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { Colors, NAVBAR_BACKGROUNDS } from '@models/colors.model';
 
 import { AuthService } from '@services/auth.service';
 import { BoardsService } from '@services/boards.service';
+import { MeService } from '@services/me.service';
+
+import { Board } from '@models/board.model';
 
 @Component({
   selector: 'app-navbar',
@@ -29,14 +32,21 @@ export class NavbarComponent {
   navBarBackgroundColor: Colors = 'sky';
   navBarColors = NAVBAR_BACKGROUNDS;
 
+  boards: Board[] = [];
+
   constructor(
     private authService: AuthService,
     private boardsService: BoardsService,
-    private router: Router
+    private router: Router,
+    private meService: MeService
   ) {
     this.boardsService.backgroundColor$.subscribe((color) => {
       this.navBarBackgroundColor = color;
     });
+  }
+
+  ngOnInit() {
+    this.getMeBoards();
   }
 
   logout() {
@@ -46,6 +56,12 @@ export class NavbarComponent {
 
   close(event: boolean) {
     this.isOpenOverlayCreateBoard = event;
+  }
+
+  getMeBoards() {
+    this.meService.getMeBoards().subscribe((boards) => {
+      this.boards = boards;
+    });
   }
 
   get colors() {

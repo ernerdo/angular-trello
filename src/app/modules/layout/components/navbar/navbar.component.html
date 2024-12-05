@@ -158,7 +158,16 @@
           <fa-icon [icon]="faClose"></fa-icon>
         </button>
       </div>
-      <div class="py-3 px-4 flex justify-between">Content</div>
+      <div class="flex flex-col justify-around gap-2 p-2">
+        <a
+          [routerLink]="['/app/boards', board.id]"
+          *ngFor="let board of boards"
+        >
+          <app-card-color [color]="board.backgroundColor">
+            {{ board.title }}
+          </app-card-color>
+        </a>
+      </div>
     </div>
   </ng-template>
 
