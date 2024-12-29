@@ -5,6 +5,7 @@ import {
   faBell,
   faClose,
   faInfoCircle,
+  faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { Colors, NAVBAR_BACKGROUNDS } from '@models/colors.model';
 
@@ -23,6 +24,7 @@ export class NavbarComponent {
   faInfoCircle = faInfoCircle;
   faClose = faClose;
   faAngleDown = faAngleDown;
+  faUser = faUser;
 
   isOpenOverlayAvatar = false;
   isOpenOverlayBoards = false;
