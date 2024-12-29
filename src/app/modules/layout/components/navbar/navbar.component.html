@@ -57,18 +57,14 @@
           </button>
           <button
             type="button"
-            class="flex rounded-full"
+            class="flex rounded-full text-white"
             aria-expanded="false"
             type="button"
             (click)="isOpenOverlayAvatar = !isOpenOverlayAvatar"
             cdkOverlayOrigin
             #menuOverlay="cdkOverlayOrigin"
           >
-            <img
-              class="w-8 h-8 rounded-full"
-              [src]="user?.avatar"
-              alt="user photo"
-            />
+            <fa-icon [icon]="faUser"></fa-icon>
           </button>
         </div>
       </div>
@@ -94,7 +90,6 @@
         </button>
       </div>
       <div class="py-3 px-4 flex items-center space-x-4">
-        <img class="w-10 h-10 rounded-full" [src]="user?.avatar" alt="" />
         <div class="space-y-1">
           <div>{{ user?.name }}</div>
           <div class="text-sm text-gray-500">{{ user?.email }}</div>
